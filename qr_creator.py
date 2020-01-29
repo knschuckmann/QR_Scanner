@@ -53,25 +53,11 @@ if not file_path:
    sys.exit('Programm wurde vom Benutzer beendet')
 
 #%%
-# Preprocessing
-qr = qrcode.QRCode(
-    version=1,
-    error_correction=qrcode.constants.ERROR_CORRECT_L,
-    box_size=10,
-    border=4,
-)
 
 buchungsnummer = raw_data['Buchungsnummer']
 
-
 for i, nr in enumerate(buchungsnummer):
-    qr.add_data(nr)
-    qr.make(fit=True)
-    img = qr.make_image(fill_color="black", back_color="white")
+    img = qrcode.make(nr, border = 2, box_size = 10, error_correction=qrcode.constants.ERROR_CORRECT_Q)
     img.save(file_path + '/'+ nr + ".png")
-    
-    
-    
-    
-    
+   
     
