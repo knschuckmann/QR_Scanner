@@ -24,7 +24,7 @@ root.withdraw()
 
 endung = 'keine'
 
-print('Öffne die gesuchte Datei!\nAchte darauf, dass diese entweder als xlsx oder csv vorliegt!\n\n')
+print('Öffne die gesuchte Datei!\nAchte darauf, dass diese entweder als xlsx oder csv vorliegt!\nBechte bitte auch, dass die ausgewählte Datei eine Spalte mit dem Namen: Buchungsnummer besitzt.\nDie Einträge aus dieser Spalte werden zu den Dateinamen.\n\n')
 
 
 while endung == 'keine':
@@ -43,10 +43,13 @@ while endung == 'keine':
         print('Bitte formatiere deine Datei in xlsx oder csv Datei um!\n\nDeine Datei muss außerdem eine Spalte mit Namen: Buchungsnummer besitzen.\n\n\n')
     
 #%%
+if 'Buchungsnummer' in raw_data.columns:    
+    buchungsnummer = raw_data['Buchungsnummer']
+else:
+    sys.exit('Die Spalte mit Namen: Buchungsnummer existiert nicht!')
+
         
 print('Wo willst du die Dateien speichern?\nGib hier bitte den Pfad an!\n')
-root = tk.Tk()
-root.withdraw()
 
 file_path = filedialog.askdirectory()
 if not file_path:
@@ -54,7 +57,6 @@ if not file_path:
 
 #%%
 
-buchungsnummer = raw_data['Buchungsnummer']
 
 for i, nr in enumerate(buchungsnummer):
     img = qrcode.make(nr, border = 2, box_size = 10, error_correction=qrcode.constants.ERROR_CORRECT_Q)
